@@ -22,7 +22,7 @@ def register():
             return redirect(url_for('home'))
 
         # Insert the new user into the database
-        mongo.db.USERS.insert_one({'username': username, 'password': hashed_password})
+        mongo.db.users.insert_one({'username': username, 'password': hashed_password})
         flash('Registration successful! Please log in.')
         return redirect(url_for('home'))
     return render_template('register.html')
