@@ -6,8 +6,8 @@ import os
 from urllib.parse import quote_plus
 
 app = Flask(__name__)
-db_user = quote_plus(os.environ.get('Prathamesh13J'))
-db_pass = quote_plus(os.environ.get('Jaiswalll@13'))
+db_user = quote_plus(os.environ.get('DB_USER'))
+db_pass = quote_plus(os.environ.get('DB_PASSWORD'))
 app.config['MONGO_URI'] = 'mongodb+srv://Prathamesh13J:Jaiswalll@13@cluster0.ststo.mongodb.net/chat_analyzer?retryWrites=true&w=majority&appName=Cluster0'
 app.config["MONGO_CONNECT_TIMEOUT_MS"] = 5000  # 5 seconds
 mongo = PyMongo(app)
