@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
-from urllib.parse import quote
+from urllib.parse import quote_plus
 
 app = Flask(__name__)
 
@@ -14,9 +14,9 @@ db_pass = os.environ.get('DB_PASSWORD')
 if not db_user or not db_pass:
     raise ValueError("Database credentials are not set in environment variables.")
 
-# Quote the credentials for URL usage according to RFC 3986
-db_user = quote(db_user)
-db_pass = quote(db_pass)
+# Escape the credentials for URL usage according to RFC 3986
+db_user = quote_plus(db_user)
+db_pass = quote_plus(db_pass)
 
 # Construct the MongoDB URI
 app.config['MONGO_URI'] = f'mongodb+srv://Prathamesh13J:Jaiswalll@13@cluster0.ststo.mongodb.net/chat_analyzer?retryWrites=true&w=majority'
