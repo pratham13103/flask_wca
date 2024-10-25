@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = 'Pratham#123'  # Change this to a random secret key
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/chat_analyzer'  # Update with your MongoDB URI
+app.config['MONGO_URI'] = 'mongodb+srv://Prathamesh13J:<db_password>@cluster0.ststo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'  # Update with your MongoDB URI
 mongo = PyMongo(app)
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -39,7 +39,7 @@ def login():
 
     if user and check_password_hash(user['password'], password):
         session['username'] = username
-        return redirect("http://localhost:8501")  # Change this to your Streamlit app's URL
+        return redirect("https://flaskwca-d7blman4xiq8zaxezcsifu.streamlit.app/")  # Change this to your Streamlit app's URL
     else:
         flash('Invalid username or password.')
         return redirect(url_for('home'))
@@ -56,4 +56,7 @@ def dashboard():
 def logout():
     session.pop('username', None)
     return redirect(url_for('home'))
+
+if __name__ == '__main__':
+    app.run(debug=True, use_reloader=False)
 
