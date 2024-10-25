@@ -1,6 +1,6 @@
 import re
 import pandas as pd
-
+from helper import add_sentiment_column
 
 def preprocess(data):
     # Updated pattern to include optional AM/PM for 12-hour format
@@ -50,5 +50,5 @@ def preprocess(data):
             period.append(f"{hour % 12 or 12}-{next_hour} " + ("PM" if hour >= 12 else "AM"))
 
     df['period'] = period
-
+    df = add_sentiment_column(df)
     return df
