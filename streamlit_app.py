@@ -2,9 +2,12 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from urllib.parse import quote_plus 
 
 app = Flask(__name__)
 app.secret_key = 'Pratham#123'  # Change this to a random secret key
+username = quote_plus('Prathamesh13J')  
+password = quote_plus('Jaiswalll@13') 
 app.config['MONGO_URI'] = 'mongodb+srv://Prathamesh13J:Jaiswalll@13@cluster0.ststo.mongodb.net/chat_analyzer?retryWrites=true&w=majority&appName=Cluster0'
 app.config["MONGO_CONNECT_TIMEOUT_MS"] = 5000  # 5 seconds
 mongo = PyMongo(app)
