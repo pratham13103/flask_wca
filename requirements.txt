@@ -6,3 +6,6 @@ wordcloud
 pandas
 emoji
 textblob
+Flask==2.2.5
+Flask-PyMongo==2.3.0
+Werkzeug==2.2.3
