@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = 'Pratham#123'  # Change this to a random secret key
-app.config['MONGO_URI'] = 'mongodb+srv://Prathamesh13J:Jaiswalll%4013@cluster0.ststo.mongodb.net/chat_analyzer?retryWrites=true&w=majority&appName=Cluster0'
+app.config['MONGO_URI'] = 'mongodb+srv://Prathamesh13J:Jaiswalll@13@cluster0.ststo.mongodb.net/chat_analyzer?retryWrites=true&w=majority&appName=Cluster0'
 app.config["MONGO_CONNECT_TIMEOUT_MS"] = 5000  # 5 seconds
 mongo = PyMongo(app)
 
@@ -36,11 +36,11 @@ def home():
 def login():
     username = request.form.get('username')
     password = request.form.get('password')
-    user = mongo.db.USERS.find_one({'username': username})
+    user = mongo.db.users.find_one({'username': username})  # Ensure it's 'users'
 
     if user and check_password_hash(user['password'], password):
         session['username'] = username
-        return redirect("https://flaskwca-d7blman4xiq8zaxezcsifu.streamlit.app/")  # Change this to your Streamlit app's URL
+        return redirect("https://flaskwca-d7blman4xiq8zaxezcsifu.streamlit.app/")  # Redirect to Streamlit app
     else:
         flash('Invalid username or password.')
         return redirect(url_for('home'))
@@ -59,5 +59,6 @@ def logout():
     return redirect(url_for('home'))
 
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=False)
+    app.run(debug=True, use_reloader=False, port=5001)  # Change to an available port
+
 
