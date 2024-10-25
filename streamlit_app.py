@@ -1,15 +1,27 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_pymongo import PyMongo
-from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 from urllib.parse import quote_plus
 
 app = Flask(__name__)
-db_user = quote_plus(os.environ.get('DB_USER'))
-db_pass = quote_plus(os.environ.get('DB_PASSWORD'))
-app.config['MONGO_URI'] = 'mongodb+srv://Prathamesh13J:Jaiswalll@13@cluster0.ststo.mongodb.net/chat_analyzer?retryWrites=true&w=majority&appName=Cluster0'
+
+# Get MongoDB credentials from environment variables
+db_user = os.environ.get('DB_USER')
+db_pass = os.environ.get('DB_PASSWORD')
+
+# Check if the environment variables are set
+if not db_user or not db_pass:
+    raise ValueError("Database credentials are not set in environment variables.")
+
+# Quote the credentials for URL usage
+db_user = quote_plus(db_user)
+db_pass = quote_plus(db_pass)
+
+# Construct the MongoDB URI
+app.config['MONGO_URI'] = f'mongodb+srv://Prathamesh13J:Jaiswalll@13@cluster0.ststo.mongodb.net/chat_analyzer?retryWrites=true&w=majority&appName=Cluster0'
 app.config["MONGO_CONNECT_TIMEOUT_MS"] = 5000  # 5 seconds
+
 mongo = PyMongo(app)
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -48,7 +60,6 @@ def login():
         flash('Invalid username or password.')
         return redirect(url_for('home'))
 
-
 @app.route('/dashboard')
 def dashboard():
     if 'username' in session:
@@ -63,5 +74,3 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=False, port=5001)  # Change to an available port
-
-
