@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.secret_key = 'Pratham#123'  # Change this to a random secret key
 app.config['MONGO_URI'] = 'mongodb+srv://Prathamesh13J:Jaiswalll%4013@cluster0.ststo.mongodb.net/chat_analyzer?retryWrites=true&w=majority&appName=Cluster0'
+app.config["MONGO_CONNECT_TIMEOUT_MS"] = 5000  # 5 seconds
 mongo = PyMongo(app)
 
 @app.route('/register', methods=['GET', 'POST'])
